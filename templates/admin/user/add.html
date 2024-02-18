@@ -1,0 +1,30 @@
+{{ define "admin/user/add.html" }}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/admin/user/doadd" method="post" enctype="multipart/form-data">
+
+
+    姓名：<input type="text" name="username" placeholder="姓名">
+    <br>
+    头像：<input type="file" name="avatar[]" placeholder="上次头像">
+    <br>
+    头像2：<input type="file" name="avatar[]" placeholder="上次头像">
+    <br>
+    头像3：<input type="file" name="avatar[]" placeholder="上次头像">
+    <br>
+    <input type="submit" value="提交">
+</form>
+
+
+
+</body>
+</html>
+
+{{ end }}

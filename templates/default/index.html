@@ -1,0 +1,60 @@
+{{ define "default/index.html" }}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+<link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <h1>{{.title}}</h1>
+
+
+
+    日常爱好：
+    <ul>
+        {{ range .hobby }}
+        <li>{{.}}</li>
+        {{ end }}
+    </ul>
+
+<hr>
+    <ul>
+        {{ range $key,$value := .hobby }}
+        <li>{{$key}}:{{$value}}</li>
+        {{ end }}
+    </ul>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>文章列表</h2>
+                <ul>
+                    {{ range .articles }}
+                    <li><a href="/news/{{.Id}}">{{.Title}}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h2>文章列表</h2>
+                <ul>
+                    {{ range $k,$v := .articles }}
+                    <li><a href="/news/{{$v.Id}}">{{$v.Title}}</a></li>
+                    {{ end }}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+{{ end }}
