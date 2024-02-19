@@ -1,0 +1,88 @@
+{{ define "admin/access/edit.html" }}
+{{ template "admin/public/page_header.html" .}}
+
+
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+      编辑权限
+    </div>
+    <div class="panel-body">
+        <div class="table-responsive input-form">
+            <form action="/admin/access/doEdit" method="post">
+                <ul>
+
+                    <li>  <label>
+                        模块名称:
+                        <input type="text" name="module_name" value="{{.data.ModuleName}}" class="form-control"/>
+                        <input type="hidden" name="id" value="{{.data.Id}}"/>
+                    </label>
+                    </li>
+                    <li>
+                        <label for="type">节点类型:</label><select name="type" id="type">
+                            <option value="1" {{if eq .data.Type 1}} selected {{end}}>模块</option>
+                            <option value="2" {{if eq .data.Type 2}} selected {{end}}>菜单</option>
+                            <option value="3" {{if eq .data.Type 3}} selected {{end}}>操作</option>
+                        </select>
+                    </li>
+
+                    <li> <label>
+                        操作名称:
+                        <input type="text" name="action_name" value="{{.data.ActionName}}"/>
+                    </label></li>
+
+                    <li>  <label>
+                        操作地址:
+                        <input type="text" name="url" value="{{.data.Url}}"/>
+                    </label></li>
+
+
+                    <li>
+                        <label for="module_id"> 所属模块:</label><select name="module_id" id="module_id">
+
+                            <option value="0">---顶级模块--</option>
+                                {{$ModuleId := .data.ModuleId}}
+                            {{range $key,$value := .moduleData}}
+                            <option value="{{$value.Id}}" {{if eq $value.Id $ModuleId}} selected {{end}}>{{$value.ModuleName}}</option>
+                            {{end}}
+                         </select>
+                    </li>
+
+                    <li>   <label>
+                        排　　序:
+                        <input type="text" name="sort" value="{{.data.Sort}}"/>
+                    </label></li>
+
+                    <li>
+
+                        <label for="description"> 描　　述 :</label><textarea name="description" id="description" cols="60" rows="5">{{.data.Description}}</textarea>
+                    </li>
+
+
+                    <li>  状　　态:
+                        <input type="radio" name="status" checked value="1" id="a" {{if eq .data.Status 1}} checked {{end}}/><label for="a">显示</label>
+                        
+                        <input type="radio" name="status" value="0" id="b" {{if eq .data.Status 0}} checked {{end}}/><label for="b">隐藏</label>
+                    </li>
+                   
+                    <li>
+                        <br/>
+                        <button type="submit" class="btn btn-default">提交</button>
+                    </li>
+
+                </ul>
+
+
+            </form>
+        </div>
+    </div>
+
+
+</div>
+
+
+</body>
+
+</html>
+
+{{end}}
