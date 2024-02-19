@@ -11,7 +11,7 @@ type IndexController struct {
 }
 
 func (con IndexController) Index(c *gin.Context) {
-	fmt.Println(models.TimeToDate(time.Now().Unix()))
+	fmt.Println(models.TimeToDate(int(time.Now().Unix())))
 	c.HTML(200, "default/index.html", gin.H{
 		"title": "首页",
 	})

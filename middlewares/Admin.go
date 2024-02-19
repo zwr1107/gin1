@@ -2,6 +2,7 @@ package middlewares
 
 import (
 	"encoding/json"
+	"fmt"
 	"gin1/models"
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -22,14 +23,17 @@ func AdminAuthMiddleware() gin.HandlerFunc {
 		if ok {
 			var userinfoStruct []models.Manager
 			err := json.Unmarshal([]byte(userinfoStr), &userinfoStruct)
+			//fmt.Println(userinfoStruct)
+			//fmt.Println(err)
 			if err != nil || len(userinfoStruct) == 0 {
 				c.Redirect(302, "/admin/login")
 			}
 
 			//已经登录
 			if pathUrl == "/admin/login" {
-				c.Redirect(302, "/admin")
-				c.Abort()
+				fmt.Println("已经登录了")
+				//c.Redirect(302, "/admin")
+				//c.Abort()
 			}
 		} else {
 			//没有登录 不能访问后台.除了登录页和登录操作

@@ -23,29 +23,44 @@ func AdminRoutersInit(r *gin.Engine) {
 		//退出登录
 		adminRouters.GET("/loginOut", admin.LoginController{}.LoginOut)
 
+		//后台管理员
 		adminRouters.GET("/manager", admin.ManagerController{}.Index)
 		adminRouters.GET("/manager/add", admin.ManagerController{}.Add)
 		adminRouters.GET("/manager/edit", admin.ManagerController{}.Edit)
 		adminRouters.GET("/manager/delete", admin.ManagerController{}.Delete)
+		adminRouters.POST("/manager/doAdd", admin.ManagerController{}.DoAdd)
+		adminRouters.POST("/manager/doEdit", admin.ManagerController{}.DoEdit)
 
+		//轮播图
 		adminRouters.GET("/focus", admin.FocusController{}.Index)
 		adminRouters.GET("/focus/add", admin.FocusController{}.Add)
 		adminRouters.GET("/focus/edit", admin.FocusController{}.Edit)
 		adminRouters.GET("/focus/delete", admin.FocusController{}.Delete)
 
-	}
-}
-vController{}.Edit)
-		navRouters.Any("/del", admin.NavController{}.Del)
-		navRouters.Any("/getinfo", admin.NavController{}.GetInfo)
+		//角色管理
+		adminRouters.GET("/role", admin.RoleController{}.Index)
+		adminRouters.GET("/role/add", admin.RoleController{}.Add)
+		//角色添加操作
+		adminRouters.POST("/role/doAdd", admin.RoleController{}.DoAdd)
+		//角色编辑
+		adminRouters.GET("/role/edit", admin.RoleController{}.Edit)
+		//角色编辑操作
+		adminRouters.POST("/role/doEdit", admin.RoleController{}.DoEdit)
+		//角色删除
+		adminRouters.GET("/role/delete", admin.RoleController{}.Delete)
+		//角色权限
+		adminRouters.GET("/role/auth", admin.RoleController{}.Auth)
+		//角色权限操作
+		adminRouters.POST("/role/doAuth", admin.RoleController{}.DoAuth)
+
+		//权限管理
+		adminRouters.GET("/access", admin.AccessController{}.Index)
+		adminRouters.GET("/access/add", admin.AccessController{}.Add)
+		adminRouters.POST("/access/doAdd", admin.AccessController{}.DoAdd)
+		adminRouters.GET("/access/edit", admin.AccessController{}.Edit)
+		adminRouters.POST("/access/doEdit", admin.AccessController{}.DoEdit)
+		adminRouters.GET("/access/delete", admin.AccessController{}.Delete)
+
 	}
 
-	//学生路由
-	studentRouters := r.Group("/admin/student")
-	{
-		studentRouters.GET("/", admin.StudentController{}.GetList)
-		studentRouters.GET("/add", admin.StudentController{}.Add)
-		studentRouters.GET("/edit", admin.StudentController{}.Edit)
-		studentRouters.GET("/del", admin.StudentController{}.Del)
-	}
 }
