@@ -13,7 +13,7 @@
             <tr>
                 <td align="right" style="background: #D8E2FA; padding-right: 10px; width: 150px;">
                     <label>
-                        <input type="checkbox"  class="module_cbo" value="{{$value.Id}}"
+                        <input type="checkbox"  class="module_cbo" value="{{$value.Id}}" {{$value.Checked}}
                             name="access_node[]">&nbsp;&nbsp;
                         {{$value.ModuleName}}
                     </label>
@@ -22,7 +22,7 @@
                     {{range $k,$v := $value.AccessItem}}
                     &nbsp;&nbsp;
                     <label>
-                        <input type="checkbox"  class="action_cbo" value="{{$v.Id}}" name="access_node[]">
+                        <input type="checkbox"  class="action_cbo" value="{{$v.Id}}" name="access_node[]" {{$v.Checked}}>
                         &nbsp;&nbsp;{{$v.ActionName}} </label>&nbsp;&nbsp;
                     {{end}}
                 </td>

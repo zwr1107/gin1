@@ -127,25 +127,24 @@ func (con RoleController) Auth(c *gin.Context) {
 	models.DB.Where("role_id=?", id).Find(&roleAccessList)
 	//fmt.Println(roleAccessList)
 	//使用数组存储当前角色的权限id
-	roleAccessArr := make([]int, 0)
+	roleAccessArr := make(map[int]int)
 	for _, v := range roleAccessList {
-		roleAccessArr = append(roleAccessArr, v.AccessId)
+		roleAccessArr[v.AccessId] = v.AccessId
 	}
-
 	//判断当前权限是否在当前角色的权限中
-	//for k, v := range accessList {
-	//	if len(v.AccessItem) > 0 {
-	//		for k1, v1 := range v.AccessItem {
-	//			if models.InArray(strconv.Itoa(v1.Id), roleAccessArr) {
-	//				accessList[k].AccessItem[k1].Checked = true
-	//			}
-	//		}
-	//	}
-	//	if models.InArray(strconv.Itoa(v.Id), roleAccessArr) {
-	//		accessList[k].Checked = true
-	//	}
-	//
-	//}
+	for k, v := range accessList {
+		for k1, v1 := range v.AccessItem {
+			if _, ok := roleAccessArr[v1.Id]; ok {
+				accessList[k].AccessItem[k1].Checked = "checked"
+			}
+		}
+
+		//判断当前模块是否在当前角色的权限中
+		if _, ok := roleAccessArr[v.Id]; ok {
+			accessList[k].Checked = "checked"
+		}
+
+	}
 
 	c.HTML(http.StatusOK, "admin/role/auth.html", gin.H{
 		"accessList": accessList,

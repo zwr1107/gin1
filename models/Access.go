@@ -12,7 +12,7 @@ type Access struct {
 	Status      int      `json:"status"`
 	AddTime     int      `json:"add_time"`
 	AccessItem  []Access `gorm:"foreignKey:ModuleId;references:Id"`
-	Checked     bool     `gorm:"-" json:"checked"` // 忽略本字段
+	Checked     string   `gorm:"-" json:"checked"` // 忽略本字段
 }
 
 func (Access) TableName() string {
