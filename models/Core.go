@@ -3,6 +3,8 @@ package models
 //https://gorm.io/zh_CN/docs/connecting_to_the_database.html
 import (
 	"fmt"
+	"os"
+
 	"gopkg.in/ini.v1"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -12,8 +14,15 @@ var DB *gorm.DB
 var err error
 
 func init() {
-	//读取配置文件
-	config, err := ini.Load("./conf/app.ini")
+	//读取配置文件,相对路径  ./conf/app.ini
+	// 获取当前工作目录
+	dir, err := os.Getwd()
+	if err != nil {
+		fmt.Println("Error getting current directory:", err)
+		return
+	}
+
+	config, err := ini.Load(dir + "/conf/app.ini")
 	if err != nil {
 		fmt.Println("读取配置文件失败", err)
 	}

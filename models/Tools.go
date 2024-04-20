@@ -4,7 +4,10 @@ import (
 	"crypto/md5"
 	"fmt"
 	"io"
+	"net/http"
 	"time"
+
+	"github.com/gin-gonic/gin"
 )
 
 // TimeToDate 时间戳转时间
@@ -48,4 +51,38 @@ func InArray(needle string, haystack []string) bool {
 		}
 	}
 	return false
+}
+
+// 定义消息结构体
+type SuccessData struct {
+	Code int         `json:"code"`
+	Msg  string      `json:"msg"`
+	Data interface{} `json:"data"`
+}
+
+// Success 返回成功
+func Success(msg string, data interface{}) SuccessData {
+	return SuccessData{
+		Code: 0,
+		Msg:  msg,
+		Data: data,
+	}
+}
+
+// Error 返回失败
+func Error(code int, msg string) SuccessData {
+	return SuccessData{
+		Code: code,
+		Msg:  msg,
+		Data: nil,
+	}
+}
+
+func JsonResponse(c *gin.Context, code int, message string, data interface{}) {
+	response := SuccessData{
+		Code: code,
+		Msg:  message,
+		Data: data,
+	}
+	c.JSON(http.StatusOK, response)
 }

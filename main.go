@@ -3,10 +3,11 @@ package main
 import (
 	"gin1/models"
 	"gin1/routers"
+	"html/template"
+
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
-	"html/template"
 )
 
 // MiddleWare 中间件
@@ -18,6 +19,8 @@ func MiddleWare() gin.HandlerFunc {
 }
 
 func main() {
+	//gin框架默认是开发模式，设置为发布模式
+	gin.SetMode(gin.ReleaseMode)
 	// 创建一个默认的路由引擎
 	r := gin.Default()
 	//自定义模板函数  注意要把这个函数放在加载模板前
